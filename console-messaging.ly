@@ -4,6 +4,19 @@
 
 #(ly:basic-progress "~%Top of file ...")
 
+\markuplist \column-lines {
+  "LilyPond's console messaging functions appear to be these seven:"
+  " "
+  "ly:basic-progress"
+  "ly:debug"
+  "ly:message"
+  "ly:programming-error"
+  "ly:progress"
+  "ly:warning"
+  "ly:warning-located"
+  " "
+}
+
 {
   #(ly:basic-progress "Inside music ...")
   \once \override Staff.Clef.color =
@@ -18,6 +31,8 @@
 #(ly:basic-progress "Bottom of file ...~%")
 
 \markuplist \column-lines {
+  "Output messaging from this file:"
+  " "
   "GNU LilyPond 2.25.3 (running Guile 2.2)"
   "Processing `docs-basic-progress.ly'"
   "Parsing..."
