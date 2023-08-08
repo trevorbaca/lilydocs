@@ -4,11 +4,7 @@
 \markup { Example: \bold "accidental-grob-parentage.ly" }
 \markup \vspace #2
 
-\markup \bold "Accidental grob parentage in the X direction:"
-\markup \vspace #1
-
-{
-  \once \override Accidental.after-line-breaking = #(
+get-parentage = #(
     lambda (accidental)
     (ly:message "")
     (let* ((accidental-placement (ly:grob-parent accidental 0))
@@ -24,26 +20,6 @@
           (ly:grob-parent paper-column 0))
         (ly:message "(ly:grob-parent system 0): ~s" (ly:grob-parent system 0))
     )
-    (ly:message "")
-    )
-  cs'4
-}
-
-\markup \typewriter \smaller \smaller \smaller \with-color #blue \column {
-  "(grob::name accidental): Accidental"
-  "(ly:grob-parent accidental 0): #<Grob AccidentalPlacement >"
-  "(ly:grob-parent accidental-placement 0): #<Grob PaperColumn >"
-  "(ly:grob-parent paper-column 0): #<Grob System >"
-  "(ly:grob-parent system 0): ()"
-}
-\markup \vspace #2
-
-\markup \bold "Accidental grob parentage in the Y direction:"
-\markup \vspace #1
-
-{
-  \once \override Accidental.after-line-breaking = #(
-    lambda (accidental)
     (ly:message "")
     (let* ((note-head (ly:grob-parent accidental 1))
            (note-column (ly:grob-parent note-head 1))
@@ -65,11 +41,20 @@
     )
     (ly:message "")
     )
+
+{
+  \once \override Accidental.after-line-breaking = #get-parentage
   cs'4
 }
 
 \markup \typewriter \smaller \smaller \smaller \with-color #blue \column {
   "(grob::name accidental): Accidental"
+  \null
+  "(ly:grob-parent accidental 0): #<Grob AccidentalPlacement >"
+  "(ly:grob-parent accidental-placement 0): #<Grob PaperColumn >"
+  "(ly:grob-parent paper-column 0): #<Grob System >"
+  "(ly:grob-parent system 0): ()"
+  \null
   "(ly:grob-parent accidental 1): #<Grob NoteHead >"
   "(ly:grob-parent note-head 1): #<Grob NoteColumn >"
   "(ly:grob-parent note-column 1): #<Grob VerticalAxisGroup >"
